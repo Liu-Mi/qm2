@@ -1,13 +1,16 @@
 ## Problem 1 on paper
 
+# Neither max nor min: 0, if sign doesnt change around 0, it is not a minimizer / maximizer
+
+
 fa <- function(x){
-    ((x^2)+1)/(2*x)
+  ((x^2)+1)/(2*x)
 }
 fb <- function(x){
-    x*(exp(x^2))
+  x*(exp(x^2))
 }
 fc <- function(x){
-    -3*x^4 +4*x^3 +7
+  -3*x^4 +4*x^3 +7
 }
 ranges <- c(0.5,sqrt(5))
 
@@ -15,16 +18,16 @@ ranges <- c(0.5,sqrt(5))
 
 
 fc1 <- function(x){
-    x^3+x^2
+  x^3+x^2
 }
 
-polyroot(c(0,0,1,1)))
+polyroot(c(0,0,1,1))
 
 
 ## Problem 2
 
 cur <- function(f,ranges){
-    curve(f,ranges[1],ranges[2])
+  curve(f,ranges[1],ranges[2])
 }
 
 cur(fa,ranges)
@@ -33,11 +36,11 @@ cur(fc,ranges)
 
 
 opt <- function(f,ranges){
-    tol <- 1e-20
-    ret <- c(optimize(f,ranges,maximum=FALSE,tol=tol))
-    ret <- c(ret, optimize(f,ranges,maximum=TRUE,tol=tol))
-    names(ret) <- c("minimum","minval","maximum","maxval")
-    ret
+  tol <- 1e-20
+  ret <- c(optimize(f,ranges,maximum=FALSE,tol=tol))
+  ret <- c(ret, optimize(f,ranges,maximum=TRUE,tol=tol))
+  names(ret) <- c("minimum","minval","maximum","maxval")
+  ret
 }
 
 opt(fa,ranges)
@@ -61,14 +64,14 @@ zbb(bs[2])
 
 
 z <- function(a,b){
-    print(paste(a,b))
-    (4*(a^2)) -(2*(b^2)) +(6*a) +(3*b) +log(a*b)
+  print(paste(a,b))
+  (4*(a^2)) -(2*(b^2)) +(6*a) +(3*b) +log(a*b)
 }
 
 z2 <- function(x){
-    a <- x[1]
-    b <- x[2]
-    (4*(a^2)) -(2*(b^2)) +(6*a) +(3*b) +log(a*b)
+  a <- x[1]
+  b <- x[2]
+  (4*(a^2)) -(2*(b^2)) +(6*a) +(3*b) +log(a*b)
 }
 
 aseq <- seq(-0.3,-0.2,0.001)
@@ -80,35 +83,35 @@ brep <- rep(bseq, times=100)
 ?matrix
 
 evalWithMatrix <- function(z,rangeA,rangeB,interval){
-    #Extract parameter values for range
-    aBegin <- rangeA[1]
-    aEnd <- rangeA[2]
-    bBegin <- rangeB[1]
-    bEnd <- rangeB[2]
-    
-    #Generate sequences in range with specified interval
-    aSeq <- seq(aBegin,aEnd,interval)
-    bSeq <- seq(bBegin,bEnd,interval)
-    
-    #Set up for loop
-    ret <- matrix(nrow=length(aSeq),ncol=length(bSeq))
-    ai = 1
-    bi = 1
-    
-    #Fill matrix
-    for(a in aSeq){
-        for(b in bSeq){
-            ret[ai,bi] <- z(a,b)
-            bi <- bi + 1
-        }
-        ai <- ai + 1
-        bi <- 1
+  #Extract parameter values for range
+  aBegin <- rangeA[1]
+  aEnd <- rangeA[2]
+  bBegin <- rangeB[1]
+  bEnd <- rangeB[2]
+  
+  #Generate sequences in range with specified interval
+  aSeq <- seq(aBegin,aEnd,interval)
+  bSeq <- seq(bBegin,bEnd,interval)
+  
+  #Set up for loop
+  ret <- matrix(nrow=length(aSeq),ncol=length(bSeq))
+  ai = 1
+  bi = 1
+  
+  #Fill matrix
+  for(a in aSeq){
+    for(b in bSeq){
+      ret[ai,bi] <- z(a,b)
+      bi <- bi + 1
     }
-    
-    #Draw contour plot
-    contour(aSeq,bSeq,ret)
-    
-    ret
+    ai <- ai + 1
+    bi <- 1
+  }
+  
+  #Draw contour plot
+  contour(aSeq,bSeq,ret)
+  
+  ret
 }
 
 eval2 <- function(z,rangeA,rangeB,lout){
@@ -160,7 +163,7 @@ fun1 <- function(x) {
   -(a^2+b^2-2)*(a^2+b^2-1)*(a^2+b^2)*(a^2+b^2+1)*(a^2+b^2+2)*(2-sin(a^2-b^2)*cos(b-exp(b)))
 }
 
-optim(c(-1.3, -1.4),fun1,control=list(fnscale = -1), 
+optim(c(-1.3, -1.4),fun1,control=list(fnscale = -1, factr = 1e10), 
       lower = c(-1.5,-1.5), upper = c(1.5,1.5) ,method= "L-BFGS-B")
 optim(c(-1.3, 0),fun1, control=list(fnscale = -1), 
       lower = c(-1.5,-1.5), upper = c(1.5,1.5) ,method= "L-BFGS-B")
@@ -189,6 +192,6 @@ ymesh <- seq(-0.2, 0.4, length.out = granularity)
 mesh <- expand.grid(xmesh, ymesh)
 z <- apply(mesh, 1, f2)
 z <- matrix(z, ncol = granularity, byrow = FALSE)
-contour(xmesh, ymesh, z, nlevels = 50, col = "gold")
+contour(xmesh, ymesh, z, nlevels = 50, col = 1)
 
 optim(c(-1,2),f2)  
