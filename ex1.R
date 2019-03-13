@@ -171,7 +171,7 @@ optim(c(0,0),fun1, control=list(fnscale = -1),
       lower = c(-1.5,-1.5), upper = c(1.5,1.5) ,method= "L-BFGS-B")
 optim(c(1.2,1.2),fun1, control=list(fnscale = -1), 
       lower = c(-1.5,-1.5), upper = c(1.5,1.5) ,method= "L-BFGS-B")
-#b------------------------------------------------------------------------------
+#b
 
 m <- c()
 for(i in 1:20){
