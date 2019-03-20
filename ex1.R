@@ -172,17 +172,19 @@ optim(c(0,0),fun1, control=list(fnscale = -1),
 optim(c(1.2,1.2),fun1, control=list(fnscale = -1), 
       lower = c(-1.5,-1.5), upper = c(1.5,1.5) ,method= "L-BFGS-B")
 #b
-
-m <- c()
-for(i in 1:20){
-  r<-runif(2, -1.5, 1.5)
-  m<-c(m,optim(c(r[1],r[2]), lower = c(-1.5, -1.5), upper = c(1.5,1.5),fun1, control=list(fnscale = -1))$value)
+{
+  m <- c()
+  for(i in 1:20){
+    r<-runif(2, -1.5, 1.5)
+    m<-c(m,optim(c(r[1],r[2]), lower = c(-1.5, -1.5), upper = c(1.5,1.5),fun1, control=list(fnscale = -1))$value)
+  }
+  print(max(m))
 }
-print(max(m))
 
 ## Problem 8 on paper
 #a
-f2<-function(a){x <- a[1] ; y <- a[2]
+f2<-function(a){x <- a[1]
+y <- a[2]
 (1-x)^2 + 100*(y-x^2)^2
 }
 
